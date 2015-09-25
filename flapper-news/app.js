@@ -5,17 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Set up mongoose by loading our data models
+// Must be before routes, users and app
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/news');
+require('./models/Posts');
+require('./models/Comments');
+
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var mongoose = require('mongoose');
+
 
 var app = express();
 
-// Set up mongoose by loading our data models
-require('./models/Posts');
-require('./models/Comments');
-mongoose.connect('mongodb://localhost/news');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

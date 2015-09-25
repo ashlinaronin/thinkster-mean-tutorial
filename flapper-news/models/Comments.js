@@ -12,3 +12,5 @@ var CommentSchema = new mongoose.Schema({
         ref: 'Post'
     }
 });
+
+mongoose.model('Comment', CommentSchema);
