@@ -10,8 +10,7 @@
         <a ng-show="post.link" href="{{post.link}}">{{post.title}}</a>
         <span ng-hide="post.link">{{post.title}}</span>
         <span>
-            <!-- can use this path instead of ui-sref? -->
-            <a href="#/posts/{{ $index }}">Comments</a>
+            <a ui-sref="posts({ postId: $index })">Comments</a>
         </span>
     </span>
 </div>
