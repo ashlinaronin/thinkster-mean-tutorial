@@ -1,5 +1,6 @@
-app.factory('PostsFactory', [function() {
-    var o = {
-        posts: []
-    };
-}]);
+app.factory('PostsFactory', function PostsFactory() {
+    var factory = {};
+    factory.posts = [];
+
+    return factory;
+});

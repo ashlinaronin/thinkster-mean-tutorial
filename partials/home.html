@@ -2,4 +2,28 @@
     <h1>Flapper News</h1>
 </div>
 
-<!-- rest of template -->
+<!-- display posts -->
+<div ng-repeat="post in posts | orderBy:'-upvotes'">
+    <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></span>
+    {{post.upvotes}}
+    <span class="post-item">
+        <a ng-show="post.link" href="{{post.link}}">{{post.title}}</a>
+        <span ng-hide="post.link">{{post.title}}</span>
+        <span>
+            <!-- can use this path instead of ui-sref? -->
+            <a href="#/posts/{{ $index }}">Comments</a>
+        </span>
+    </span>
+</div>
+
+<!-- add new post -->
+<form ng-submit="addPost()">
+    <h3>Add a new post</h3>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="title" ng-model="title"></input>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="link" ng-model="link"></input>
+    </div>
+    <button class="btn btn-primary" type="submit">Post</button>
+</form>
