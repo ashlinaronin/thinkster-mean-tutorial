@@ -1,3 +1,4 @@
+// Factory interfaces between Angular and the RESTful API
 app.factory('PostsFactory', function PostsFactory($http) {
     var factory = {};
     factory.posts = [];
@@ -28,6 +29,17 @@ app.factory('PostsFactory', function PostsFactory($http) {
         return $http.get('/posts/' + id).then(function(response) {
             return response.data;
         });
+    };
+
+    factory.addComment = function(postId, comment) {
+        return $http.post('/posts/' + postId + '/comments', comment);
+    };
+
+    factory.upvoteComment = function(post, comment) {
+        return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
+            .success(function(data) {
+                comment.upvotes += 1;
+            });
     };
 
     return factory;

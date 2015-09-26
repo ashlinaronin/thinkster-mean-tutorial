@@ -4,19 +4,19 @@ app.controller('PostsCtrl', function PostsCtrl($scope, PostsFactory, post) {
     $scope.addComment = function() {
         // Don't allow user to submit empty comment
         if ($scope.body) {
-            $scope.post.comments.push(
-                {
-                    body: $scope.body,
-                    author: 'user',
-                    upvotes: 0
-                }
-            );
+            PostsFactory.addComment(post._id, {
+                body: $scope.body,
+                author: 'user'
+            }).success(function(comment) {
+                $scope.post.comments.push(comment);
+            });
+
             // Reset input field and bound var after adding comment
             $scope.body = '';
         }
-    }
+    };
 
     $scope.incrementUpvotes = function(comment) {
-        comment.upvotes += 1;
-    }
+        PostsFactory.upvoteComment(post, comment);
+    };
 });

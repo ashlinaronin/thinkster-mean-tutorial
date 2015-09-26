@@ -35,7 +35,7 @@ router.param('commentId', function(request, response, next, commentId) {
         if (error) {
             return next(error);
         }
-        if (!post) {
+        if (!comment) {
             return next(new Error('can\'t find comment'));
         }
 
@@ -133,10 +133,10 @@ router.post('/posts/:postId/comments', function(request, response, next) {
 ** Upvote a comment. Maybe won't work??
 ** Need another middleware function for :comment */
 router.put('/posts/:postId/comments/:commentId/upvote', function(request, response, next) {
-    request.comment.upvote(function(error, post) {
+    request.comment.upvote(function(error, comment) {
         if (error) { return next(error); }
 
-        response.json(post);
+        response.json(comment);
     });
 });
 
