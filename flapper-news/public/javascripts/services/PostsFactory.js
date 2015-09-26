@@ -16,5 +16,19 @@ app.factory('PostsFactory', function PostsFactory($http) {
         });
     };
 
+    // Upvote a post when we go to that http address
+    factory.upvote = function(post) {
+        return $http.put('/posts/' + post._id + '/upvote').success(function(data) {
+            post.upvotes += 1;
+        });
+    };
+
+    // Get one post based on its id when we go to a url indicating a post
+    factory.getPost = function(id) {
+        return $http.get('/posts/' + id).then(function(response) {
+            return response.data;
+        });
+    };
+
     return factory;
 });

@@ -16,10 +16,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
+    // Whenever we go to a url with a postid, get data from factory db
+    // and return it to controller
     $stateProvider.state('posts', {
         url: '/posts/:postId',
         templateUrl: 'partials/posts.html',
-        controller: 'PostsCtrl'
+        controller: 'PostsCtrl',
+        resolve: {
+            post: ['$stateParams', 'PostsFactory', function($stateParams, PostsFactory) {
+                return PostsFactory.getPost($stateParams.postId);
+            }]
+        }
     });
 
 

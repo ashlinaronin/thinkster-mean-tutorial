@@ -18,6 +18,6 @@ app.controller('MainCtrl', function MainCtrl($scope, PostsFactory) {
     };
 
     $scope.incrementUpvotes = function(post) {
-        post.upvotes += 1;
+        PostsFactory.upvote(post);
     }
 });
