@@ -9,10 +9,20 @@
         <script src="javascripts/controllers/MainController.js"></script>
         <script src="javascripts/controllers/PostsController.js"></script>
         <script src="javascripts/controllers/AuthController.js"></script>
+        <script src="javascripts/controllers/NavController.js"></script>
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
     </head>
     <body ng-app="flapperNews">
+        <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+            <ul class="nav navbar-nav">
+                <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+                <li ng-show="isLoggedIn()"><a href="#" ng-click="logOut()">Log Out</a></li>
+                <!-- we can use these hrefs or the ui-sref here -->
+                <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+                <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+            </ul>
+        </nav>
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
