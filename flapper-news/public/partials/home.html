@@ -9,6 +9,9 @@
     <span class="post-item">
         <a ng-show="post.link" href="{{post.link}}">{{post.title}}</a>
         <span ng-hide="post.link">{{post.title}}</span>
+        <span ng-show="post.author">
+            <!-- why is this a link? -->
+            posted by <a>{{post.author}}</a> |
         <span>
             <!-- could have also used ui-sref here -->
             <a href="#/posts/{{post._id}}">Comments</a>
@@ -17,7 +20,7 @@
 </div>
 
 <!-- add new post -->
-<form ng-submit="addPost()">
+<form ng-submit="addPost()" ng-show="isLoggedIn()">
     <h3>Add a new post</h3>
     <div class="form-group">
         <input class="form-control" type="text" placeholder="title" ng-model="title"></input>
@@ -27,3 +30,7 @@
     </div>
     <button class="btn btn-primary" type="submit">Post</button>
 </form>
+
+<div ng-hide="isLoggedIn()">
+    <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+</div>

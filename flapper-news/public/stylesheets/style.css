@@ -7,6 +7,6 @@ a {
   color: #00B7FF;
 }
 
-.register-form, .login-form {
+form {
     margin-top: 30px;
 }

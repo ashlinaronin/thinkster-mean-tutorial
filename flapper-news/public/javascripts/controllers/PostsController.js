@@ -1,5 +1,8 @@
-app.controller('PostsCtrl', function PostsCtrl($scope, PostsFactory, post) {
+app.controller('PostsCtrl', function PostsCtrl($scope, PostsFactory, AuthFactory, post) {
     $scope.post = post;
+
+    // Give PostsCtrl access to isLoggedIn method of AuthFactory
+    $scope.isLoggedIn = AuthFactory.isLoggedIn;
 
     $scope.addComment = function() {
         // Don't allow user to submit empty comment

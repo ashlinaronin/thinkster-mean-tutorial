@@ -1,6 +1,9 @@
-app.controller('MainCtrl', function MainCtrl($scope, PostsFactory) {
+app.controller('MainCtrl', function MainCtrl($scope, PostsFactory, AuthFactory) {
     // Mirror the array of posts returned by the factory
     $scope.posts = PostsFactory.posts;
+
+    // Give MainCtrl access to isLoggedIn method of AuthFactory
+    $scope.isLoggedIn = AuthFactory.isLoggedIn;
 
     // Add post to DB via the postfactory
     $scope.addPost = function() {
