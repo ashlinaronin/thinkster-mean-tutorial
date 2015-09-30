@@ -29,6 +29,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
     });
 
+    $stateProvider.state('login', {
+        url: '/login',
+        templateUrl: '/login.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'AuthFactory', function($state, AuthFactory) {
+            if (AuthFactory.isLoggedIn()) {
+                $state.go('home');
+            }
+        }]
+    });
+
+    $stateProvider.state('register', {
+        url: '/register',
+        templateUrl: '/register.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'AuthFactory', function($state, AuthFactory) {
+            if(AuthFactory.isLoggedIn()) {
+                $state.go('home');
+            }
+        }]
+    });
+
 
     // Set up default state for unspecified routes
     $urlRouterProvider.otherwise('home');
