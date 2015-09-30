@@ -1,5 +1,5 @@
 // Factory interfaces between Angular and the RESTful API
-app.factory('PostsFactory', function PostsFactory($http) {
+app.factory('PostsFactory', function PostsFactory($http, AuthFactory) {
     var factory = {};
     factory.posts = [];
 
@@ -12,14 +12,18 @@ app.factory('PostsFactory', function PostsFactory($http) {
 
     // Create a new post via the factory on success of posts post HTTP request
     factory.create = function(post) {
-        return $http.post('/posts', post).success(function(data) {
+        return $http.post('/posts', post, {
+            headers: {Authorization: 'Bearer ' + AuthFactory.getToken()}
+        }).success(function(data) {
             factory.posts.push(data);
         });
     };
 
     // Upvote a post when we go to that http address
     factory.upvote = function(post) {
-        return $http.put('/posts/' + post._id + '/upvote').success(function(data) {
+        return $http.put('/posts/' + post._id + '/upvote', null, {
+            headers: {Authorization: 'Bearer ' + AuthFactory.getToken()}
+        }).success(function(data) {
             post.upvotes += 1;
         });
     };
@@ -32,12 +36,15 @@ app.factory('PostsFactory', function PostsFactory($http) {
     };
 
     factory.addComment = function(postId, comment) {
-        return $http.post('/posts/' + postId + '/comments', comment);
+        return $http.post('/posts/' + postId + '/comments', comment, {
+            headers: {Authorization: 'Bearer ' + AuthFactory.getToken()}
+        });
     };
 
     factory.upvoteComment = function(post, comment) {
-        return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
-            .success(function(data) {
+        return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
+            headers: {Authorization: 'Bearer ' + AuthFactory.getToken()}
+        }).success(function(data) {
                 comment.upvotes += 1;
             });
     };
